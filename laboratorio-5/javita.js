@@ -55,7 +55,7 @@ $(document).ready(function() {
 		};
 
 		$.ajax({
-			url: "http://localhost:8080/CategoryRestService/Add",
+			url: "http://localhost:8080/CategoryRestService/Update",
 			type: 'POST',
 			dataType: "json",
 			contentType : "application/json",
