@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script>
+       
+        $(document).ready(function() {
+            var llenado = "";
+            $.ajax({
+                url: "http://localhost:8080/CategoryRestService/FindAll"
+            }).then(function(data) {
+                $.each(data, function(i, obj){
+                    var fila = "<tr><th scope='row'>" + obj.id + "</th>" +
+                                    "<td>" + obj.whenCreated + "</td>" +
+                                    "<td>" + obj.whenLastUpdated + "</td>" +
+                                    "<td>" + obj.name + "</td>" +
+                                    "<td>" + obj.description + "</td>";
+                    llenado = llenado.concat(fila);
+                });
+                $('.tabla').append(llenado);
+            });
+        });
+
+        $(document).ready(function() {
+            $("#submit").click(function(e) {
+                var name_ = "cemento";
+                var _description = "cemento bueno";
+                var sendInfo = {
+                    "name": name_,
+                    "description": _description
+                };
+
+                $.ajax({
+                    url: "http://localhost:8080/CategoryRestService/Add",
+                    type: 'PUT',
+                    dataType: "json",
+                    contentType : "application/json",
+                    data: JSON.stringify(sendInfo),
+                    success: function (msg) {
+                    if (msg) {
+                        alert(name_ + "Registro exitoso");
+                        console.log("Categoría registrada :3");
+                    } else {
+                        alert("Error!!!!" + name_);
+                        console.log("Vuelva a Registrar La categoría");
+                    }
+                },
+                });
+            });
+        });
+
+
+        $(document).ready(function() {
+            $("#submit2").click(function(e) {
+                var name_ = "sal de mar";
+                var _description = "persona";
+                var sendInfo = {
+                    "name": name_,
+                    "description": _description
+                };
+
+                $.ajax({
+                    url: "http://localhost:8080/CategoryRestService/Update",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType : "application/json",
+                    data: JSON.stringify(sendInfo),
+                    success: function (msg) {
+                    if (msg) {
+                        alert(name_ + "Actualización exitosa");
+                        console.log("Categoría actualizada :3");
+                    } else {
+                        alert("Error!!!!" + name_);
+                        console.log("categoria morida");
+                    }
+                },
+                });
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+
+<div id="#submit"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<div id="#submit2"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<button>Get External Content</button>
+
+</body>
+</html>
